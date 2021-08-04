@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'B-F-J/bootstrap-5.0.1-dist/css/bootstrap.css' %}" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static '/css/style-same.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/style-messenger.min.css' %}" />
+    <!-- font-awesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Messenger</title>
+</head>
+
+<body>
+    <header>
+        <!-- navbar -->
+        <div class="container ">
+            <div class="row">
+                <nav class="navbar navbar-expand-lg navbar-light  col-md-12 navbar-style">
+                    <a class="navbar-brand logo " href="/">Falco</a> {% if request.user.is_authenticated %}
+                    <a class=" nav-username" href="/accounts/user/information/{{request.user.pk}}">
+                        <h5>Hi {{request.user.username}}</h3>
+                    </a>
+                    {% endif%}
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">            
+            <span class="navbar-toggler-icon"></span>
+          </button>
+                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                        <ul class=" nav navbar-nav navbar-right ">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="">Messenger</a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link " href="/">Home<span class="sr-only"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- navbar End -->
+
+            <!-- Main section -->
+            <!-- section 1 -->
+            <div class="row row-customize justify-content-center ">
+                {% if livechat %}
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  col-xs-12 ">Group Name : {{group_chat.name}}</div>
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  col-xs-12 ">
+                    <a href="/messenger/group/join/">
+                        <input type="submit" value="Join group" class="btn float-center login_btn btn-login">
+                    </a>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  col-xs-12 ">
+                    <a href="/messenger/group/create/">
+                        <input type="submit" value="create group" class="btn float-center login_btn btn-login">
+                    </a>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  col-xs-12 ">
+                    <a href="/messenger/group/leave/{{group_chat.slug}}">
+                        <input type="submit" value="Leave group" class="btn float-center login_btn btn-login">
+                    </a>
+                </div>
+                {% else %}
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4  col-xs-12 ">Name : {{request.user.username}}</div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4  col-xs-12  ">
+                    <a href="/messenger/group/join/">
+                        <input type="submit" value="Join group" class="btn float-center login_btn btn-login">
+                    </a>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4  col-xs-12  ">
+                    <a href="/messenger/group/create/">
+                        <input type="submit" value="Create group" class="btn float-center login_btn btn-login">
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="row header-content-messenger ">
+
+                <!-- section 2 - Groups -->
+                <div class="contact col-3" id="style-1">
+                    {% for group in chats %}
+                    <div class="row groups ">
+                        <div class="text-center img col-4">
+                            {% if group.chat.image %}
+                            <img src="{{group.chat.image.url}}" class="rounded" alt="..."> {% else %}
+                            <img src="{% static '/img/fake_one.jpeg' %}" class="rounded" alt="..."> {% endif %}
+                        </div>
+                        <div class="group_name col-8">
+                            <a href="/messenger/{{group.chat.slug}}/">
+                                <h2>{{group.chat.name}}</h2>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- section 3 - Messages -->
+                <div class="chat col-9">
+                    <!-- chat section -->
+                    <div class="mesgs" id="id_one">
+                        <div class="msg_history">
+                            {% for chat in livechat %} {% if chat.author == request.user %} {%if chat.warning %}
+                            <div class="row msg_warning">
+                                <span class="time_date">----------{{chat.date_format}}  {{chat.body}} ----------</span>
+                            </div>
+                            {%else%}
+                            <div class="row outgoing_msg_user">
+                                <p class="body ">{{chat.body}}</p>
+                                <span class="time_date ">{{chat.date_format}} </span>
+                            </div>
+                            {%endif%} {% else %} {%if chat.warning %}
+                            <div class="row msg_warning">
+                                <span class="time_date">----------{{chat.date_format}}  {{chat.body}} ----------</span>
+                            </div>
+                            {%else%}
+                            <div class="row incoming_msg_user">
+                                <p class="body col-lg-10 col-sm-8 col-8">{{chat.body}}</p>
+                                <p class="name col-lg-2 col-sm-4 col-4">{{chat.author}}</p>
+                                <span class="time_date">{{chat.date_format}} </span>
+                            </div>
+                            {%endif%} {%endif%} {% endfor %}
+                        </div>
+                        <div class="row input_msg_write">
+                            {% if livechat %}
+                            <input type="text" class="write_msg  col-lg-10 col-md-10 col-sm-8 col-8" placeholder="Type a message" id="inp" />
+                            <button class=" col-lg-1 col-md-1 col-sm-2 col-2 " type="button"><i class="fa fa-paper-plane" aria-hidden="true" id="snd"></i></button>
+                            <a href="detail/" class=" col-lg-1  col-md-1 col-sm-2 col-2 chat_information_a"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></a> {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <!-- Jquery and Bootstrap -->
+    <script src="{% static 'B-F-J/jquery/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'B-F-J/bootstrap-5.0.1-dist/js/bootstrap.min.js' %}"></script>
+    <!-- socket section -->
+    <script>
+        var slug = {
+            {
+                chat_slug
+            }
+        };
+        var msgdiv = $('.msg_history');
+
+        window.onload = function(e) {
+            msgdiv.scrollTop(msgdiv.prop('scrollHeight'));
+        };
+
+        var socket = new WebSocket(
+            'ws://' +
+            window.location.host +
+            '/ws/messenger/' +
+            slug +
+            '/'
+        );
+
+        socket.onmessage = function(e) {
+            var message = JSON.parse(e.data);
+            switch (message['type']) {
+                case "join":
+                    msgdiv.append('<div class="row msg_warning" ><span class="time_date">----------TIME  BODY ----------</span></div>'.replace('BODY', message['text']).replace('TIME', message['time']));
+                    break;
+                case "leave":
+                    msgdiv.append('<div class="row msg_warning" ><span class="time_date">----------TIME  BODY ----------</span></div>'.replace('BODY', message['text']).replace('TIME', message['time']));
+                    break;
+                case "delete":
+                    var d = new Date();
+                    var n = d.toLocaleTimeString();
+                    msgdiv.append('<div class="row msg_warning" ><span class="time_date">----------TIME  BODY ----------</span></div>'.replace('BODY', message['text']).replace('TIME', message['time']));
+                    break;
+                case "msg":
+                    var d = new Date();
+                    var n = d.toLocaleTimeString();
+                    msgdiv.append('<div class="row incoming_msg_user" ><p class="body col-lg-10 col-sm-8 col-8">MESSAGE</p><p class="name col-lg-2 col-sm-4 col-4">USERNAME</p><span class="time_date">TIME</span></div>'.replace('USERNAME', message['sender']).replace('MESSAGE', message['text']).replace('TIME', n));
+                    break;
+                default:
+                    break;
+            };
+            msgdiv.scrollTop(msgdiv.prop('scrollHeight'));
+        };
+
+        socket.onclose = function(e) {
+            console.error("socket closed");
+        };
+
+        document.querySelector("#snd").onclick = function(e) {
+            var messageinputdom = document.querySelector("#inp");
+            var message = messageinputdom.value;
+            var d = new Date();
+            var n = d.toLocaleTimeString();
+            if (messageinputdom.value == '') {
+                pass;
+            } else {
+                msgdiv.append('<div class="row outgoing_msg_user" ><p class="body ">MESSAGE</p><span class="time_date ">TIME </span></div>'.replace('MESSAGE', message).replace('TIME', n));
+                msgdiv.scrollTop(msgdiv.prop('scrollHeight'));
+                socket.send(JSON.stringify({
+                    "text": message
+                }));
+                document.getElementById('inp').value = '';
+            }
+        }
+        document.querySelector("#inp").value = '';
+        document.querySelector("#inp").focus();
+        document.querySelector("#inp").onkeyup = function(e) {
+            if (e.keyCode === 13) {
+                document.querySelector("#snd").onclick();
+            }
+        };
+    </script>
+</body>
+
+</html>

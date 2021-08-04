@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  redis:
+    image: redis:latest
+    command: redis-server
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - staticfiles:/usr/src/app/staticfiles
+      - media:/usr/src/app/media
+    depends_on:
+      - web
+
+  web:
+    build: .
+    command: daphne -b 0.0.0.0 -p 8000 falco.asgi:application
+    volumes:
+      - staticfiles:/usr/src/app/staticfiles
+      - media:/usr/src/app/media
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+
+volumes:
+  staticfiles:
+  media:

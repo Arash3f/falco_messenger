@@ -1,0 +1,50 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Information</title>
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static '/css/style-same.min.css' %}"/>
+  <link rel="stylesheet" href="{% static '/css/style-information.min.css' %}"/>
+{% endblock %}
+
+{% block Main %}
+  <div class="row justify-content-center">
+    <div class="header-content-information col-xxl-7 col-xl-8 col-lg-9 col-11">
+      <h1>
+        Falco Messenger
+      </h1><br>
+      <h2>
+        Front
+      </h2><br>
+      <p>
+        Source : Html / Css / Java Script / Jquery / Bootstrap <br>
+        Creator : Arash Alfooneh<br><br>
+      </p>
+      <h2>
+        Back
+      </h2><br>
+      <p>
+        Source : Django / Channels<br>
+        Creator : Arash Alfooneh<br><br>
+      </p>
+      <h2>
+        Features
+      </h2><br>
+      <p>
+        &emsp;Authentication : <br><br>
+        &emsp;&emsp;login / logout<br>
+        &emsp;&emsp;register / edit <br><br>
+        &emsp;&#09Chat :<br><br>
+        &emsp;&emsp;create / remove<br>
+        &emsp;&emsp;group informations<br>
+        &emsp;&emsp;warning message<br><br>
+      </p>
+    <h4>
+      Arash Alfooneh
+    </h4>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'B-F-J/bootstrap-5.0.1-dist/css/bootstrap.css' %}"/>
+
+    <title>Group Information</title>
+</head>
+<body>
+  <header style="background-image: none;">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">name</th>
+            <th scope="col">admin</th>
+            <th scope="col">kick</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for i in members%}
+            <tr>
+              <td>{{i.user}}</td>
+              <td>
+                  {% if i.user == chat.creator%}
+                    yes
+                  {%endif%}
+              </td>
+              <td>
+                  {% if request.user == chat.creator%}
+                    <a href="/messenger/chat/member/kick/{{chat.slug}}/{{i.user.id}}">kick</a>
+                  {%endif%}
+              </td>
+            </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+  </header>
+</body>
+</html>

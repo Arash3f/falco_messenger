@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Login</title>
+{% endblock %}
+
+{% block Login_active %}
+<li class="nav-item active">
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static '/css/style-same.min.css' %}"/>
+  <link rel="stylesheet" href="{% static '/css/style-login.min.css' %}"/>
+{% endblock %}
+
+{% block Main %}
+  <div class="row  justify-content-center">
+    <div class="header-content-login col-xxl-7 col-xl-8 col-lg-8 col-11">
+      <form method="POST">
+        {% csrf_token %}
+        {% for error in form.non_field_errors %}
+          <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+          </div>
+        {% endfor %}
+        <div class="form-group row">
+            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Username</label>
+            <div class="col-sm-10">
+              {{ form.username }}
+              <!-- <input type="usernaem" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Arash"> -->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Password</label>
+            <div class="col-sm-10">
+              {{ form.password }}
+              <!-- <input type="password" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Arash"> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Login" class="btn float-center login_btn btn-login">
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Hi {{request.user.username}}</title>
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static '/css/style-same.min.css' %}"/>
+  <link rel="stylesheet" href="{% static '/css/style-user-information.min.css' %}"/>
+{% endblock %}
+
+{% block Main %}
+  <div class="row justify-content-center">
+    <div class="header-content-user_information col-xxl-7 col-xl-8 col-lg-8 col-11">
+      <form method="POST">
+        {% csrf_token %}
+        {% for error in form.non_field_errors %}
+          <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+          </div>
+        {% endfor %}
+        <div class="form-group row">
+          <div class="form-group input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                  <!-- <input type="username" class="form-control" aria-label="Username" aria-describedby="inputGroup-sizing-default"> -->
+                  {{ form.username }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">First Name</span>
+            <!-- <input type="text" class="form-control" aria-label="First Name" aria-describedby="inputGroup-sizing-default"> -->
+            {{ form.first_name }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Last Name</span>
+            <!-- <input type="text" class="form-control" aria-label="Last Name" aria-describedby="inputGroup-sizing-default"> -->
+            {{ form.last_name }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+            <!-- <input type="email" class="form-control" aria-label="Email" aria-describedby="inputGroup-sizing-default"> -->
+            {{ form.email }}
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Save" class="btn float-center login_btn btn-login">
+          <a class="btn btn-danger logout" href="/accounts/logout" role="button">Logout</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

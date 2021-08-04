@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Falco messeger</title>
+{% endblock %}
+
+{% block Home_active %}
+<li class="nav-item active">
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static '/css/style-same.min.css' %}"/>
+  <link rel="stylesheet" href="{% static '/css/style-main.min.css' %}"/>
+{% endblock %}
+
+{% block Main %}
+  <div class="row main-page justify-content-center" >
+    <div class="header-content-main col-xxl-7 col-xl-8 col-12 ">
+      <h1>Wellcome to Falco Messenger</h1>
+      <hr>
+      <p>
+        Hi , Wellcome to Falco Messenger.<br/>
+        I am very happy to see you here and I hope I can meet all your needs.<br/>
+        for start the conversation from the top menu Click on Login, and if you do not already have an account, please register first. <br/> 
+      </p>
+      <button><a href="information/" class="btn btn-lg">more informations</a></button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block SCRIPT %}
+{% endblock %}

@@ -29,9 +29,9 @@ We have 2 ways to deploy this project  :
 ## Python Environment
 **Clone project :**
 
-- `git clone https://github.com/Arash3f/Django-Portfolio.git`
+- `git clone https://github.com/Arash3f/falco_messenger.git`
 
-- `cd falco`
+- `cd falco_messenger`
 
 - `cd project`
 
@@ -70,18 +70,20 @@ We have 2 ways to deploy this project  :
 > project is running on port **8000** with **Daphne**
 
 ## Docker
-> if befor now  collect staticfile , remove it first
+> if befor now  collect staticfile , remove staticfile folder first
 
 > Ports **6379**, **8000**, and **80** must be free
 
 **Clone project**
 
-- `git clone https://github.com/Arash3f/Django-Portfolio.git`
-- `cd falco`
+- `git clone https://github.com/Arash3f/falco_messenger.git`
+- `cd falco_messenger`
 
 **run project**
 
-- `sudo docker-compose run -d --build`
+- `sudo docker-compose up -d --build`
+
+> **Note** :  The [python-decouple](https://github.com/henriquebastos/python-decouple "python-decouple") library is used for the environment variables section. 
 
 > project is running on port **80**  with **Dephne**
 

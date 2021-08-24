@@ -1,5 +1,5 @@
 # What is Falco Messenger ?
-As it's obvious from the name of the project , it's a messenger which created by the combination of Django and Channels library and there is bootstrap framework at the frontend.
+As it's obvious from the name of the project , it's a messenger which created by the combination of Django and Channels library and bootstrap has been used in frontend.
 - [Features](https://github.com/Arash3f/falco_messenger#features)
 - [How to Deploy ?](https://github.com/Arash3f/falco_messenger#how-to-deploy-)
 - [Deploy with Python Environment ](https://github.com/Arash3f/falco_messenger#python-environment)
